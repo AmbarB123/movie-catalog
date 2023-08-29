@@ -3,7 +3,7 @@ import { Link, useSearchParams  } from "react-router-dom";
 
 import {useDispatch, useSelector} from 'react-redux'
 
-import {gettingMoviesAction, nextMoviesAction, previousMoviesAction, gettinDetailMovie} from '../redux/marvelDucks'
+import {gettingMoviesAction, nextMoviesAction, previousMoviesAction} from '../redux/marvelDucks'
 
 const MoviesMarvel = () => {
 
