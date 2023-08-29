@@ -1,8 +1,11 @@
 import React from 'react';
-import MoviesMarvel from './components/Movies';
+import MoviesMarvel from './pages/Movies';
 
 import { Provider } from 'react-redux';
 import generateStore from './redux/store'
+
+import {router} from './router'
+import { RouterProvider } from 'react-router-dom';
 
 function App() {
 
@@ -10,9 +13,10 @@ function App() {
 
   return (
       <Provider store={store}>
-        <div className="container mt-3">
+        <RouterProvider router={router} />
+        {/* <div className="container mt-3">
           <MoviesMarvel />
-        </div>
+        </div> */}
       </Provider>
   );
 }
