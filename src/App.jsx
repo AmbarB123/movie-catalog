@@ -1,5 +1,4 @@
 import React from 'react';
-import MoviesMarvel from './pages/Movies';
 
 import { Provider } from 'react-redux';
 import generateStore from './redux/store'
@@ -14,9 +13,6 @@ function App() {
   return (
       <Provider store={store}>
         <RouterProvider router={router} />
-        {/* <div className="container mt-3">
-          <MoviesMarvel />
-        </div> */}
       </Provider>
   );
 }
