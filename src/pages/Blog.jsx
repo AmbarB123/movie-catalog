@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
+import Accordion from 'react-bootstrap/Accordion';
 
 import axios from 'axios'
 
@@ -14,17 +15,25 @@ const Blog = () => {
         }, [])
 
     return (
-        <ul>
-            {posts.length > 0 ? (
-                posts.map((blog) => (
-                    <li key={blog.id}>
-                        <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
-                    </li>
-                ))
-            ) : (
-                <li>No blogs found</li>
-            )}
-        </ul>
+        <div>
+            <Accordion defaultActiveKey="0" >
+                {posts.length > 0 ? (
+                    posts.map((blog) => (
+                        <Accordion.Item eventKey={blog.id}>
+                            <Accordion.Header>{blog.title}</Accordion.Header>
+                            <Accordion.Body>
+                                <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    ))
+                ) : (
+                    <p>No blogs found</p>
+                )}
+            </Accordion>
+            
+        
+        </div>
+        
     )
 }
 

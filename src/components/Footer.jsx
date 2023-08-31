@@ -1,6 +1,16 @@
+
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+
 const Footer =  () => {
     return (
-        <p>Footer</p>
+        <div>
+            <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+                <Container>
+                    <p>Copyright © 2023 Ambar Ballen. All rights reserved.</p>
+                </Container>
+            </Navbar>
+        </div>
     )
 }
 

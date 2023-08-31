@@ -3,7 +3,8 @@ import axios from 'axios'
 // Constantes // state
 const dataInicial = {
     array: [],
-    offset: 0
+    offset: 0,
+    detail: []
 }
 
 const GETTING_MOVIES = 'GETTING_MOVIES';
@@ -40,7 +41,7 @@ export const gettingMoviesAction = () => async (dispatch, getState) => {
         return
     }
     try {
-        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/characters?limit=20&offset=${offset}&apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
+        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/comics?hasDigitalIssue=true&orderBy=-onsaleDate&limit=15&offset=${offset}&apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
         dispatch({
             type: GETTING_MOVIES,
             payload: res.data.data.results,
@@ -57,7 +58,7 @@ export const nextMoviesAction = (numero) => async(dispatch, getState) => {
     const next_update = offset + numero
 
     try {
-        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/characters?limit=20&offset=${next_update}&apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
+        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/comics?hasDigitalIssue=true&orderBy=-onsaleDate&limit=15&offset=${next_update}&apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
         dispatch({
             type: NEXT_MOVIES,
             payload: {
@@ -75,7 +76,7 @@ export const previousMoviesAction = (numero) => async(dispatch, getState) => {
     const previous = offset - numero
 
     try {
-        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/characters?limit=20&offset=${previous}&apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
+        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/comics?hasDigitalIssue=true&orderBy=-onsaleDate&limit=15&offset=${previous}&apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
         dispatch({
             type: PREVIOUS_MOVIES,
             payload: {
@@ -89,32 +90,38 @@ export const previousMoviesAction = (numero) => async(dispatch, getState) => {
 
 }
 
-export const gettinDetailMovie = (id = 1017100) => async (dispatch) => {
+export const gettinDetailMovie = (id) => async (dispatch) => {
 
     if (localStorage.getItem(id)) {
         dispatch({
             type: GETTING_ID_MOVIE,
-            payload: JSON.parse(id)
+            payload: JSON.parse(localStorage.getItem(id))
         })
         return
     }
     try {
-        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
+        const res = await axios.get(`https://gateway.marvel.com:443/v1/public/comics/${id}?apikey=3c09fbf3d37d688c0a8a0a8ab4b56b1d`)
         const resp = res.data.data.results[0];
         dispatch({
             type: GETTING_ID_MOVIE,
             payload:{
-                title: resp.name,
+                title: resp.title,
                 photo: resp.thumbnail.path,
                 startYear: resp.modified,
-                ext: resp.thumbnail.extension
+                ext: resp.thumbnail.extension,
+                characters: resp.characters,
+                dates: resp.dates,
+                description: resp.description
             }
         })
         localStorage.setItem(id, JSON.stringify({
-            title: resp.name,
+            title: resp.title,
             photo: resp.thumbnail.path,
             startYear: resp.modified,
-            ext: resp.thumbnail.extension
+            ext: resp.thumbnail.extension,
+            characters: resp.characters,
+            dates: resp.dates,
+            description: resp.description
         }))
     } catch (error) {
         console.log(error);
