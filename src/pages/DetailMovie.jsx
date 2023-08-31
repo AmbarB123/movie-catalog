@@ -2,14 +2,14 @@ import React from 'react'
 
 import {useDispatch, useSelector} from 'react-redux'
 import {gettinDetailMovie} from '../redux/marvelDucks'
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 const DetailMovie = () => {
 
     const dispatch = useDispatch()
     const {id} = useParams();
-
+    
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -19,18 +19,51 @@ const DetailMovie = () => {
     }, [dispatch, id])
 
     const detailM = useSelector(store => store.movies.detail)
+    console.log(detailM);
 
     return (
-        <div className="card text-center text-uppercase mt-5">
+        <div className='container'>
             {
                 detailM !== undefined &&
-                <div className="card-body">
-                    <img className="img-fluid" alt={detailM.title} src={detailM.photo + '.' + detailM.ext} />
-                    <div className="card-title">{detailM.title}</div>
-                    <p className="card-text">detailM.startYear</p>
+                <div className='detailComic'>
+                    <div className='img'>
+                        <img src={detailM.photo + '.' + detailM.ext} alt="cxvxcxv" />
+                    </div>
+                    <div className='text'>
+                        <h1>{detailM.title}</h1>
+                        
+                        <p>
+                        {
+                            detailM.dates && 
+                            <div className='pub'>
+                                <h3>Published:</h3>
+                                <p>{(detailM.dates[0].date).split('T')[0]}</p>
+                            </div>
+                        }
+                        </p>
+
+                    
+                        {
+                            detailM.description !== null && 
+                            <div>
+                                <h3 className='desc'>Description:</h3>
+                                <p>{detailM.description}</p>
+                            </div>
+                        }
+
+{
+                            detailM.description == null && 
+                            <div>
+                                <h3 className='desc'>Description:</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, eligendi impedit doloribus ratione modi excepturi, veritatis hic et provident cum debitis sunt culpa quam iste ipsum totam blanditiis doloremque nihil.</p>
+                            </div>
+                        }
+                        
+
+                         <Link to='/'><button className='btn btn-danger back'>Back</button></Link> 
+                    </div>
                 </div>
             }
-            
         </div>
     )
 }
