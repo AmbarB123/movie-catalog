@@ -15,14 +15,18 @@ const Blog = () => {
         }, [])
 
     return (
-        <div>
-            <Accordion defaultActiveKey="0" >
+        <div className="post">
+            <div className="img-banner-blog">
+                <img src="bg-blog.jpg" alt="" />
+            </div>
+            <h1 className="text-white container text-center"> Articles</h1>
+            <Accordion defaultActiveKey="0" className="accordion-post" >
                 {posts.length > 0 ? (
                     posts.map((blog) => (
-                        <Accordion.Item eventKey={blog.id}>
+                        <Accordion.Item eventKey={blog.id} key={blog.id}>
                             <Accordion.Header>{blog.title}</Accordion.Header>
                             <Accordion.Body>
-                                <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
+                                Here you can find more information <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
                             </Accordion.Body>
                         </Accordion.Item>
                     ))
@@ -33,7 +37,6 @@ const Blog = () => {
             
         
         </div>
-        
     )
 }
 

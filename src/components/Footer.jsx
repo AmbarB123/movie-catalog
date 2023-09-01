@@ -5,9 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 const Footer =  () => {
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+            <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary footer">
                 <Container>
-                    <p>Copyright © 2023 Ambar Ballen. All rights reserved.</p>
+                    <p>Copyright © 2023 Ambar. All rights reserved.</p>
                 </Container>
             </Navbar>
         </div>
